@@ -26,8 +26,10 @@ public class Bitmap {
     public BufferedImage readImage() {
         BufferedImage bmpImage = null;
         try {
-            bmpImage = ImageIO.read(this.imageFile);
-            System.out.println(bmpImage);
+            if(this.imageFile.exists()) {
+                bmpImage = ImageIO.read(this.imageFile);
+                System.out.println(bmpImage);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -75,7 +77,7 @@ public class Bitmap {
         }
         try {
             File outputImageFileLocation = new File(this.exportLocation);
-            ImageIO.write(transformedImage, "bmp", outputImageFileLocation);
+            ImageIO.write(transformedImage, Files.getFileExtension(this.imageLocation), outputImageFileLocation);
             System.out.println("Success");
         } catch (IOException e) {
             e.printStackTrace();
@@ -94,7 +96,7 @@ public class Bitmap {
         }
         try {
             File outputImageFileLocation = new File(this.exportLocation);
-            ImageIO.write(transformedImage, "bmp", outputImageFileLocation);
+            ImageIO.write(transformedImage, Files.getFileExtension(this.imageLocation), outputImageFileLocation);
             System.out.println("Success");
         } catch (IOException e) {
             e.printStackTrace();
@@ -111,7 +113,7 @@ public class Bitmap {
         }
         try {
             File outputImageFileLocation = new File(this.exportLocation);
-            ImageIO.write(transformedImage, "bmp", outputImageFileLocation);
+            ImageIO.write(transformedImage, Files.getFileExtension(this.imageLocation), outputImageFileLocation);
             System.out.println("Success");
         } catch (IOException e) {
             e.printStackTrace();
