@@ -7,8 +7,11 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class AppTest {
-    @Test public void testAppHasAGreeting() {
-        App classUnderTest = new App();
-        assertNotNull("app should have a greeting", classUnderTest.getGreeting());
+
+    @Test public void test_ligten() {
+        String[] input = new String[] {"src/main/resources/img_lights.bit.bmp", "src/main/resources/img_lights_output.bmp", "red"};
+        App obj = new App();
+        int output = 1;
+        assertSame(obj.main(input), output);
     }
 }
