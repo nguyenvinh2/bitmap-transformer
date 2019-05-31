@@ -10,10 +10,10 @@ import java.io.IOException;
 
 public class App {
 
-    public int main(String[] args) {
+    public static void main(String[] args) {
+        //string[] input = new String[]{"src/main/resources/img_lights.bmp", "src/main/resources/img_lights_output.bmp","rotateCCW"};
         Bitmap image = new Bitmap(args);
         image.runTransform();
-        return 1;
 
         // ./gradlew run --args 'src/main/resources/img_lights.bmp src/main/resources/img_lights_output.bmp rotateCCW'
     }
