@@ -14,6 +14,7 @@ import java.io.File;
 import static org.junit.Assert.*;
 
 public class AppTest {
+
     @Test
     public void testBitmapConstructorGetter() {
         String[] input = new String[] {"home.jpg", "home2.jpg", "grayscale"};
@@ -129,5 +130,6 @@ public class AppTest {
         test.runTransform();
 
         assertEquals(false, output.exists());
+
     }
 }
