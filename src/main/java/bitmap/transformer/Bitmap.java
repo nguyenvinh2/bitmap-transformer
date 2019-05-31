@@ -55,16 +55,28 @@ public class Bitmap {
             case "grayscale":
                 runGrayScaleTransformation();
                 break;
+            case "border":
+                runCreateBorder();
+                break;
+            case "rotateCCW":
+                runRotateCCW();
+                break;
         }
     }
 
     public void runInversion() {
+        BufferedImage transformedImage = new BufferedImage(this.image.getWidth(), this.image.getHeight(), this.image.getType());
         for(int i = 0; i < this.image.getWidth(); i++) {
             for(int j = 0; j < this.image.getHeight(); j++) {
-                System.out.print(0xFFF - this.image.getRGB(i,j));
-
+                transformedImage.setRGB(i, j, 0xFFFFFF - this.image.getRGB(i,j));
             }
-            System.out.println();
+        }
+        try {
+            File outputImageFileLocation = new File(this.exportLocation);
+            ImageIO.write(transformedImage, "bmp", outputImageFileLocation);
+            System.out.println("Success");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -77,13 +89,46 @@ public class Bitmap {
                 color = new Color(averageColor, averageColor, averageColor);
                 transformedImage.setRGB(i, j, color.getRGB());
             }
-            try {
-                File outputImageFileLocation = new File(this.exportLocation);
-                ImageIO.write(transformedImage, "bmp", outputImageFileLocation);
-            } catch (IOException e) {
-                e.printStackTrace();
+        }
+        try {
+            File outputImageFileLocation = new File(this.exportLocation);
+            ImageIO.write(transformedImage, "bmp", outputImageFileLocation);
+            System.out.println("Success");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void runCreateBorder() {
+        BufferedImage transformedImage = new BufferedImage(this.image.getWidth() + 10, this.image.getHeight() + 10, this.image.getType());
+        for(int i = 0; i < this.image.getWidth(); i++) {
+            for(int j = 0; j < this.image.getHeight(); j++) {
+                Color color = new Color(this.image.getRGB(i, j));
+                transformedImage.setRGB(i + 5, j + 5, color.getRGB());
             }
         }
+        try {
+            File outputImageFileLocation = new File(this.exportLocation);
+            ImageIO.write(transformedImage, "bmp", outputImageFileLocation);
+            System.out.println("Success");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void runRotateCCW() {
+        BufferedImage transformedImage = new BufferedImage(this.image.getHeight(), this.image.getWidth(), this.image.getType());
+        for(int i = 0; i < this.image.getWidth(); i++) {
+            for(int j = 0; j < this.image.getHeight(); j++) {
+                transformedImage.setRGB(j, i, this.image.getRGB(i, j));
+            }
+        }
+        try {
+            File outputImageFileLocation = new File(this.exportLocation);
+            ImageIO.write(transformedImage, "bmp", outputImageFileLocation);
+            System.out.println("Success");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
