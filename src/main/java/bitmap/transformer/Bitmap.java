@@ -1,5 +1,7 @@
 package bitmap.transformer;
 
+import com.google.common.io.Files;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -125,7 +127,7 @@ public class Bitmap {
         }
         try {
             File outputImageFileLocation = new File(this.exportLocation);
-            ImageIO.write(transformedImage, "bmp", outputImageFileLocation);
+            ImageIO.write(transformedImage, Files.getFileExtension(this.imageLocation), outputImageFileLocation);
             System.out.println("Success");
         } catch (IOException e) {
             e.printStackTrace();

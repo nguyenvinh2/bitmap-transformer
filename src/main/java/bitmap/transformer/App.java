@@ -15,6 +15,6 @@ public class App {
         Bitmap image = new Bitmap(args);
         image.runTransform();
 
-        // ./gradlew run --args 'src/main/resources/img_lights.bmp src/main/resources/img_lights_output.bmp grayscale'
+        // ./gradlew run --args 'src/main/resources/img_lights.bmp src/main/resources/img_lights_output.bmp rotateCCW'
     }
 }
