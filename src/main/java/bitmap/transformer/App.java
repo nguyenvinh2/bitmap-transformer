@@ -10,11 +10,11 @@ import java.io.IOException;
 
 public class App {
 
-    public static void main(String[] args) {
-//        String[] input = new String[] {"src/main/resources/img_lights.bmp", "src/main/resources/img_lights_output.bmp", "grayscale"};
+    public int main(String[] args) {
         Bitmap image = new Bitmap(args);
         image.runTransform();
+        return 1;
 
-        // ./gradlew run --args 'src/main/resources/img_lights.bmp src/main/resources/img_lights_output.bmp grayscale'
+        // ./gradlew run --args 'src/main/resources/img_lights.bmp src/main/resources/img_lights_output.bmp rotateCCW'
     }
 }

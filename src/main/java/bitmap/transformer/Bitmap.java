@@ -1,10 +1,13 @@
 package bitmap.transformer;
 
+import com.google.common.io.Files;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.awt.image.RescaleOp;
 
 public class Bitmap {
     String imageLocation;
@@ -24,8 +27,10 @@ public class Bitmap {
     public BufferedImage readImage() {
         BufferedImage bmpImage = null;
         try {
-            bmpImage = ImageIO.read(this.imageFile);
-            System.out.println(bmpImage);
+            if(this.imageFile.exists()) {
+                bmpImage = ImageIO.read(this.imageFile);
+                System.out.println(bmpImage);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -61,6 +66,12 @@ public class Bitmap {
             case "rotateCCW":
                 runRotateCCW();
                 break;
+            case "lighten":
+                runLighten();
+                break;
+            case "darken":
+                runDarken();
+
         }
     }
 
@@ -73,7 +84,7 @@ public class Bitmap {
         }
         try {
             File outputImageFileLocation = new File(this.exportLocation);
-            ImageIO.write(transformedImage, "bmp", outputImageFileLocation);
+            ImageIO.write(transformedImage, Files.getFileExtension(this.imageLocation), outputImageFileLocation);
             System.out.println("Success");
         } catch (IOException e) {
             e.printStackTrace();
@@ -92,7 +103,7 @@ public class Bitmap {
         }
         try {
             File outputImageFileLocation = new File(this.exportLocation);
-            ImageIO.write(transformedImage, "bmp", outputImageFileLocation);
+            ImageIO.write(transformedImage, Files.getFileExtension(this.imageLocation), outputImageFileLocation);
             System.out.println("Success");
         } catch (IOException e) {
             e.printStackTrace();
@@ -109,7 +120,7 @@ public class Bitmap {
         }
         try {
             File outputImageFileLocation = new File(this.exportLocation);
-            ImageIO.write(transformedImage, "bmp", outputImageFileLocation);
+            ImageIO.write(transformedImage, Files.getFileExtension(this.imageLocation), outputImageFileLocation);
             System.out.println("Success");
         } catch (IOException e) {
             e.printStackTrace();
@@ -125,7 +136,53 @@ public class Bitmap {
         }
         try {
             File outputImageFileLocation = new File(this.exportLocation);
-            ImageIO.write(transformedImage, "bmp", outputImageFileLocation);
+            ImageIO.write(transformedImage, Files.getFileExtension(this.imageLocation), outputImageFileLocation);
+            System.out.println("Success");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    /*
+    This method lighten the given input from the user
+     */
+    public void runLighten() {
+        BufferedImage transformedImage = new BufferedImage(this.image.getWidth(), this.image.getHeight(), this.image.getType());
+
+        try {
+            for(int i = 0; i < this.image.getWidth(); i++) {
+                for(int j = 0; j < this.image.getHeight(); j++) {
+                    transformedImage.setRGB(i, j, image.getRGB(i,j));
+                }
+            }
+            float scaleFactor = 5.3f;
+            RescaleOp op = new RescaleOp(scaleFactor, 0, null);
+            transformedImage = op.filter(transformedImage, null);
+
+            File outputImageFileLocation = new File(this.exportLocation);
+            ImageIO.write(transformedImage, Files.getFileExtension(this.imageLocation), outputImageFileLocation);
+            System.out.println("Success");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    /*
+    This method Darken the given input from the user
+     */
+    public void runDarken() {
+        BufferedImage transformedImage = new BufferedImage(this.image.getWidth(), this.image.getHeight(), this.image.getType());
+
+        try {
+            for(int i = 0; i < this.image.getWidth(); i++) {
+                for(int j = 0; j < this.image.getHeight(); j++) {
+                    transformedImage.setRGB(i, j, image.getRGB(i,j));
+                }
+            }
+            float scaleFactor = 0.5f;
+            RescaleOp op = new RescaleOp(scaleFactor, 0, null);
+            transformedImage = op.filter(transformedImage, null);
+
+            File outputImageFileLocation = new File(this.exportLocation);
+            ImageIO.write(transformedImage, Files.getFileExtension(this.imageLocation), outputImageFileLocation);
             System.out.println("Success");
         } catch (IOException e) {
             e.printStackTrace();
